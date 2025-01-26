@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux"
 import { useDispatch } from "react-redux";
 import { startAllAddress } from "../actions/addressAction";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { UserContext } from "../App";
 import { Link, useNavigate } from "react-router-dom";
 import {Card, Col, Row , Button,Dropdown,DropdownButton, Pagination} from 'react-bootstrap';
 import { startMyAllProducts, startQuery } from "../actions/myProducts";
@@ -52,6 +53,9 @@ function isWithinRadius(lat1, lon1, lat2, lon2, radius) {
     //     dispatchRdx(startAllAddress())
     // },[])
     
+    const  {state} = useContext(UserContext)
+    console.log('now',state.user._id)
+
     const [ displayView, setDisplayView] = useState('allProducts')
     const [catData, setCatData] = useState(null)
     const [searchValue, setSearchValue] = useState('')
@@ -61,10 +65,14 @@ function isWithinRadius(lat1, lon1, lat2, lon2, radius) {
     //const [currentPage, setCurrentPage] = useState(1)
     //const allProduct = useSelector(state => state )
     //console.log('catdata',catData)
-    const query = useSelector((state)=>{
+    const q = useSelector((state)=>{
         return state.allProducts.query
     })
-    console.log('kkkd',query)
+    console.log('kkkd',q)
+    const query = q.filter((ele)=>{
+        return ele.productOwner !== state.user._id
+    })
+    console.log('query',query)
 
     const [pageNo, setPageNo] = useState(() => {
         const savedPage = localStorage.getItem("currentPage");
@@ -86,15 +94,21 @@ function isWithinRadius(lat1, lon1, lat2, lon2, radius) {
         return state.category.category
     })
     //console.log('category',category)
+
+
     //products
-    const products = useSelector((state)=>{
+    const s = useSelector((state)=>{
         return state.allProducts.allProducts
     })
-    //console.log('products',products)
+    
+    console.log('products',s)
+    const products= s.filter((ele)=> 
+         ele.productOwner !== state.user._id)
+    console.log('getready',products)
     //productOwnerID
-    const proOwnerId = products.map((ele)=>{
-        return ele.productOwner
-    })
+    // const proOwnerId = products.map((ele)=>{
+    //     return ele.productOwner
+    // })
     //console.log('promap',proOwnerId)
     //AddressOwnerId
     const userAddressId = useSelector((state)=>{
@@ -301,16 +315,12 @@ function isWithinRadius(lat1, lon1, lat2, lon2, radius) {
                     </Dropdown.Item>
                 ))}
             </DropdownButton>
-        </div>
-        
             <Button className="m-2" onClick={radiusClick}>Near Your location</Button><></>
 
             <Button className="m-2" onClick={(e)=>{setDisplayView('allProducts')}}>All Products</Button>
-
             <input  style={{ fontFamily: 'cursive' }} className="m-2" placeholder='Search ' onClick={(e)=>{setDisplayView('searchValue')}} onChange={(e)=>{setSearchValue(e.target.value)}} value={searchValue}/>
-           
-
-           
+        </div>
+          
          </ul>
         { displayView == 'sort' ?
         

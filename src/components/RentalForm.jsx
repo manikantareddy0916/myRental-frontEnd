@@ -4,13 +4,15 @@ import { useNavigate, useParams } from "react-router-dom"
 
 import { Carousel } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Import Bootstrap CSS
-import { Form ,Button, Card} from 'react-bootstrap'
+import { Modal, Form ,Button, Card} from 'react-bootstrap'
 
 
 import { DateRange } from 'react-date-range';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { startForm} from "../actions/rentalFormAction";
+import { useContext } from "react";
+import { UserContext } from "../App";
 
 export default function RentalForm (){
 
@@ -23,6 +25,7 @@ export default function RentalForm (){
     const [files, setFiles] = useState([])
     const [days, setDays] = useState(0)
     const [productOwner,setProductOwner] = useState('')
+    const [productOwnerEmail,setProductOwnerEmail] = useState('')
     const [mobileNumber, setMobileNumber] = useState('')
    
     // const [startDate, setStartDate] = useState('')
@@ -39,12 +42,16 @@ export default function RentalForm (){
     const productOwn = useSelector((state)=>{
       return state.allProducts.allProducts
     })
+    //const {state} = useContext(UserContext) 
     useEffect(() => {
       const my = productOwn.find((ele) => ele._id === rId);
-  
+      
+      //console.log('j',state.user.email)
+      console.log(my,'my')
       if (my) {
         console.log('ppp',my.productOwner)
         setProductOwner(my.productOwner);
+        setProductOwnerEmail();
       }
     }, [productOwn, rId]);
   
@@ -120,6 +127,7 @@ export default function RentalForm (){
           formData.append('mobileNumber', mobileNumber)
           formData.append('productOwner', productOwner)
           formData.append('days', nofDays)
+          //formData.append('productOwnerEmail',productOwnerEmail )
           
           files.forEach((obj) => {
               formData.append('aadhar', obj)
@@ -127,6 +135,7 @@ export default function RentalForm (){
          
           
           console.log('owner',productOwner)
+          //console.log('ownerEmail',productOwnerEmail)
           // console.log('forma',dada)
           // console.log('forma',typeof(dada))
 
@@ -174,6 +183,7 @@ export default function RentalForm (){
   // console.log('mobile',days)
     return  (
         <div>
+        
          <div className="d-flex justify-content-center align-items-center vh-5">
       {rentProduct.map((ele,i) => (
         <div key={ele._id} className="w-50 h-50">
@@ -219,10 +229,20 @@ export default function RentalForm (){
         {toogle ? 
         (
           <>
-          <h2 style={{fontFamily: 'cursive'}}>Add Your Details</h2>
-          <form onSubmit={formSubmit} encType="multipart/form-data" className="mb-3" >
-              
-              <Form.Group controlId="formFileMultiple" className="mb-3">
+         <Modal show={true} onHide={handleClick}>
+            <Modal.Header closeButton>
+            <Modal.Title>Add Your </Modal.Title>
+            </Modal.Header> 
+
+            <Modal.Body>
+            <form onSubmit={formSubmit} encType="multipart/form-data" className="mb-3" >
+{/*                      
+                <Form.Control size="small"
+                type="" value={} onChange={}
+                    name='' placeholder=""/>
+                    <div style={{color: 'red'}}>{ ?  : ''}</div><br /> */}
+
+<Form.Group controlId="formFileMultiple" className="mb-3">
                 <Form.Label style={{fontFamily: 'cursive'}}> Add Your ProofId or collageId or aadharId</Form.Label>
                 <Form.Control 
                   type="file" name='product' onChange={handleFiles}
@@ -254,8 +274,17 @@ export default function RentalForm (){
                     name='mobilenumber' placeholder="Enter your MobileNumber" 
                      />
                     {clientErrors.mobileNumber && <span style={{color: 'red'}}>{clientErrors.mobileNumber}</span>}<br/>
-                <Button variant="primary" type="submit"  >Submit Request</Button>
+                    
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClick} > Close </Button>
+                <Button 
+                variant="primary" type="submit" value='Submit'  onClick={formSubmit}> Submit </Button>
+            </Modal.Footer>
             </form>
+            </Modal.Body>
+
+    </Modal>              
+          
         </>) : ''}
         
         </div>

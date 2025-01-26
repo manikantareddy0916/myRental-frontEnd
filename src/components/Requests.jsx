@@ -151,17 +151,25 @@ import { Card,Row, Col,Button, Modal ,Carousel} from "react-bootstrap"
 import { Link } from "react-router-dom"
 import axios from "../configure/axios"
 import { startAcceptedRequests } from "../actions/rentalFormAction"
+import Footer from "./Footer"
 export default function Requests(){
 
     // const [tog, setTog]= useState(false)
     // const [toogle, setToogle]= useState(false)
     //const {state} = useContext(UserContext)
+    let footerValue = false 
+
    const dispatchRdx = useDispatch()
     const myReq = useSelector((state)=>{
         return state.reqForm.getRequests
     })
     //console.log('myreq',myReq)
-    
+    const dataa= myReq.map((ele)=>{
+        if(ele.status == 'pending' ){
+            footerValue=true
+            return 0
+        }
+    })
 
     const handleSubmit =async (aId)=>{
         console.log('aid',aId)
@@ -174,11 +182,13 @@ export default function Requests(){
     }
   
     return (
-        <div className="p-3">
+        <div >
+            <div className="p-3">
             <h2 style={{fontFamily: 'cursive'}} >Accept the Rental  users Requests</h2>
             <Row xs={1} md={3} className="g-4 " >
                 {myReq.map((ele) => (
                      ele.status == 'pending' ? (
+                    <div key={ele._id}>
                     <Col key={ele._id} style={{ marginBottom: '20px' }}>
                     <Card className="h-100 ">
                     {/* <Card className="h-100 hover-shadow image-hover-effect"> */}
@@ -203,26 +213,30 @@ export default function Requests(){
                         </Card.Body>
                         <Button onClick={()=>{handleSubmit(ele._id)}}>Accept</Button>
                     </Card>
-                    </Col>) : ''
+                    </Col>
+                    </div>
+                    ) : ''
                 ))}
             </Row>
-           
+            </div> 
+             {!footerValue ? 
+             <div className="fixed-bottom">
+             <Footer/>
+             </div>
+             :
+             <Footer/>
+            }
+            {/* {
+                myReq.map((ele)=>{
+                    (ele.status == 'pending')
+                }) ? 
+                <Footer/>
+                :
+               
+                <div className="fixed-bottom">
+                    <Footer/>
+                </div>
+                } */}
         </div>
     )
 }
-{/* <Carousel key={ele._id} className="w-50 h-50 carousel-fade">
-{ele.aadhar.map((image, index) => (
-    <Carousel.Item key={index}>
-    <img
-        className="d-block w-100 h-100"
-        src={image.url}
-        alt={`Slide ${index + 1}`}
-    />
-    <Carousel.Caption>
-        <h3>First slide label</h3>
-        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-    </Carousel.Caption>
-    </Carousel.Item>
-    
-))}
-</Carousel> */}

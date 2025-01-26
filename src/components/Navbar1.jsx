@@ -29,6 +29,7 @@ export default function  Navbar1() {
     // console.log('1i')
     //localStorage.removeItem('token') 
   }
+
   return (
     <div  className='mb-5 pb-1'>
       <Navbar bg="dark" data-bs-theme="dark" className='fixed-top '>
@@ -52,6 +53,8 @@ export default function  Navbar1() {
                       (state.user.role === 'admin') ? 
                   (<>
 
+                    <Col ><Nav.Link as={Link} to='/MyProducts' 
+                        style={{color:'white',fontSize:22}}> MyProducts </Nav.Link></Col>  
                     <Col ><Nav.Link as={Link} to='/Payment' 
                         style={{color:'white',fontSize:22}}> Pay </Nav.Link></Col>  
                     <Col ><Nav.Link as={Link} to='/Requests'
@@ -66,10 +69,13 @@ export default function  Navbar1() {
                   </>)
                   :
                   (<>
+                
+                  <Col ><Nav.Link as={Link} to='/MyProducts' 
+                        style={{color:'white',fontSize:22}}> MyProducts </Nav.Link></Col>
                     <Col ><Nav.Link as={Link} to='/Payment'
                         style={{color:'white',fontSize:22}}> Pay </Nav.Link></Col>
                     <Col ><Nav.Link as={Link} to='/Requests'
-                        style={{color:'white',fontSize:22}}> MyRequests </Nav.Link></Col>
+                        style={{color:'white',fontSize:22}}> Requests </Nav.Link></Col>
                     <Col><Nav.Link as={Link} to='/Profile'
                         style={{color:'white',fontSize:22}}> Profile </Nav.Link></Col>
                     <Col><Nav.Link as={Link} to='/'

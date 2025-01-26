@@ -91,7 +91,7 @@ export  default function Register(){
                         {clientErrors.email && <span>{clientErrors.email}</span>}
                     </div>
                     <div className="data">
-                        <input type="text" name="" placeholder="Enter your password"  
+                        <input type="password" name="" placeholder="Enter your password"  
                         value={password} onChange={(e)=>{setPassword(e.target.value)}}/>
                         <box-icon type='solid' name='lock'></box-icon> <br />
                         {clientErrors.password && <span>{clientErrors.password}</span>}       

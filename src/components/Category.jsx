@@ -5,7 +5,7 @@ import _ from 'lodash'
 import { useSelector } from "react-redux"
 import { startDeleteId } from "../actions/categoryAction"
 import { Button } from "react-bootstrap"
-
+import Footer from "./Footer"
 export default function Category(){
 
     const dispatchRdx = useDispatch()
@@ -62,14 +62,14 @@ export default function Category(){
     return (
         <div>
 
-            <h1 style={{fontFamily: 'cursive'}}>C@@ategoreys</h1>
+            <h1 style={{fontFamily: 'cursive'}}>Categoreys</h1>
             
             {category.map((ele)=>{
                 return (
                
                     <ul key={ele._id}>
                         <li>{ele.name}</li>
-                        <Button onClick={()=>{handleClick(ele._id)}}>Delete</Button>
+                        <Button  onClick={()=>{handleClick(ele._id)}}>Delete</Button>
                     </ul>
               
                 )
@@ -83,7 +83,8 @@ export default function Category(){
                     Add
                 </Button>
             </form>
-           
+        <Footer/>
         </div>
     )
 }
+//45/138-5-3

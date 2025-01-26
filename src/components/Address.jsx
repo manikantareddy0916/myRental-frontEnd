@@ -149,37 +149,37 @@ export default function Address(){
                 <Form.Control size="small"
                 type="text" value={formik.values.place} onChange={formik.handleChange}
                     name='place' placeholder="Enter your Place"/>
-                    {formik.errors.place ? formik.errors.place : ''}<br />
+                    <div style={{color: 'red'}}>{formik.errors.place ? formik.errors.place : ''}</div><br />
 
                 <Form.Control size="small"
                 type="text" value={formik.values.houseNumber} onChange={formik.handleChange}
                     name='houseNumber' placeholder="Enter your houseNumber"  /><br/>
-                    {formik.errors.houseNumber ? formik.errors.houseNumber : ''}<br />
+                    <div style={{color:'red'}}>{formik.errors.houseNumber ? formik.errors.houseNumber : ''}</div><br />
 
                 <Form.Control size="small"
                 type="text" value={formik.values.street} onChange={formik.handleChange}
                 name='street' placeholder="Enter your Street" /><br/>
-               {formik.errors.street ? formik.errors.street : ''}<br />
+                <div style={{color:'red'}}>{formik.errors.street ? formik.errors.street : ''}</div><br />
                     
                 <Form.Control size="small"
                 type="text" value={formik.values.pinCode} onChange={formik.handleChange}
                 name='pinCode' placeholder="Enter your Pincode" /><br/>
-                {formik.errors.pinCode ? formik.errors.pinCode : ''}<br />
+                <div style={{color:'red'}}>{formik.errors.pinCode ? formik.errors.pinCode : ''}</div><br />
 
                 <Form.Control size="small"
                 type="text" value={formik.values.city} onChange={formik.handleChange}
                 name='city' placeholder="Enter your City" /><br/>
-                {formik.errors.city ? formik.errors.city : ''}<br />
+                <div style={{color:'red'}}>{formik.errors.city ? formik.errors.city : ''}</div><br />
 
                 <Form.Control size="small"
                 type="text" value={formik.values.myState} onChange={formik.handleChange}
                 name='myState' placeholder="Enter your State" /><br/>
-                {formik.errors.myState ? formik.errors.myState : ''}<br />
+                <div style={{color:'red'}}>{formik.errors.myState ? formik.errors.myState : ''}</div><br />
 
                 <Form.Control size="small"
                 type="text" value={formik.values.country} onChange={formik.handleChange}
                 name='country' placeholder="Enter your Country" /><br/>
-                {formik.errors.country ? formik.errors.country : ''}<br />
+                <div style={{color:'red'}}>{formik.errors.country ? formik.errors.country : ''}</div><br />
                 
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClick} > Close </Button>

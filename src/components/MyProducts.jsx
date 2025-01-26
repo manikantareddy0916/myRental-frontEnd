@@ -1,7 +1,7 @@
 import { useState, useEffect} from "react"
 import { startAllProducts, startDelete, startEdit, startMakeAvailable, startMyAllProducts, startMyProducts } from "../actions/myProducts"
 import { useDispatch } from "react-redux"
-import _ from 'lodash'
+import _, { fill } from 'lodash'
 import { useSelector } from "react-redux"
 import { useContext } from "react"
 import { UserContext } from "../App"
@@ -12,7 +12,7 @@ import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import {Modal, Form,Dropdown ,Button,DropdownButton,Pagination} from 'react-bootstrap'
 import { ToastContainer, toast } from 'react-toastify';
-
+import Footer from "./Footer"
 export default function MyProducts(){
 
      const dispatchRdx = useDispatch()
@@ -72,10 +72,18 @@ export default function MyProducts(){
         return ele.productOwner == state.user._id
     })
    
-    
+    const userAddress = useSelector((state)=>{
+        return state.address.address[0]
+      })
+      console.log('add',userAddress)
     //toogle for Button
     const handleClick=(e)=>{
-        setToogle(!toogle)
+        
+        if(userAddress){
+            setToogle(!toogle)
+        }else{
+            navigator('/Address')
+        }
     }
     //uploading multi images
     function handleFiles(e) {
@@ -236,7 +244,7 @@ export default function MyProducts(){
     
       const handleNextClick = () => {
         console.log('jj',pageNo,totalPages)
-        if (pageNo < totalPages) {
+        if (pageNo < totalPages) { 
           setPageNo(pageNo + 1);
         }
       };
@@ -259,6 +267,7 @@ export default function MyProducts(){
       }, [pageNo]);
     return(
         <div className="p-3">
+            
         <h1 style={{fontFamily: 'cursive'}}>My Products</h1>
         
         { toogle ? 
@@ -266,7 +275,7 @@ export default function MyProducts(){
         <Modal show={toogle} onHide={handleClick}>
             <Modal.Header closeButton>
             <Modal.Title>Add Your Product</Modal.Title>
-            </Modal.Header> 
+            </Modal.Header>
 
             <Modal.Body>
             <form onSubmit={handleSubmit} encType="multipart/form-data" >
@@ -385,6 +394,13 @@ export default function MyProducts(){
         </Pagination>
         
         <ToastContainer />
+        {fill.length == 0 ?
+         <Footer/>
+         :
+         <div className="footer">
+            <Footer/>
+        </div>
+         }
         </div>
     )
 }

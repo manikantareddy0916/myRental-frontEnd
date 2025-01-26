@@ -5,7 +5,7 @@ import { Card,Row, Col,Button, Modal ,Carousel} from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { UserContext } from "../App"
 import PaymentItem from "./paymentItem"
-
+import Footer from "./Footer"
 export default function Payment(){
 
 
@@ -15,15 +15,23 @@ export default function Payment(){
 
     const {state} = useContext(UserContext)
     //console.log('loginuser',state.user)
-
+    let  footerValue = false
     const myReq = useSelector((state)=>{
         return state.reqForm.allReqProducts
     })
     console.log('requestedData',myReq)
+    console.log('requestedData',(myReq.length))
     
+    const dataa= myReq.map((ele)=>{
+        if((ele.status == 'accepted' && ele.rentalUser._id == state.user._id )){
+            footerValue=true
+            return 0
+        }
+    })
     const pay = useSelector((state)=>{
         return state.payments.allPayments
     })
+
     //console.log('PaymentData',pay)
     // const d = pay.filter((ele) => {
     //     const foundElement = myReq.find((ele2) => ele2._id === ele.rentalProductId);
@@ -41,8 +49,9 @@ export default function Payment(){
 
     //localStorage.removeItem('rentalProductId');
     return (
-        <div className="p-3">
-          <h2 style={{fontFamily: 'cursive'}}>Your Request is Accepted Hear your Payment link  </h2>
+        <div >
+            <div className="p-3">
+            <h2 style={{fontFamily: 'cursive'}}>Your Request is Accepted And Hear your Payment link  </h2>
             <Row xs={1} md={3} className="g-3 ">
                 {/* {pay.map((ele)=>{
                     if(ele.rentalProductId === myReq._id){
@@ -57,7 +66,26 @@ export default function Payment(){
                      : ''
                 ))}
             </Row>
+            </div>
+            {!footerValue ? 
+             <div className="fixed-bottom">
+             <Footer/>
+             </div>
+             :
+             <Footer/>
+            }
+            {/* <div >
+            {myReq.length ==0 ?
+            
+            <div className="fixed-bottom">
+            <Footer/>
+            </div>
+            :
+            <Footer/>
+            }
+            </div> */}
            
         </div>
+        
     )
 }

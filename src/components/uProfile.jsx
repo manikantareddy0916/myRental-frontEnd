@@ -9,6 +9,8 @@ import { useDispatch } from 'react-redux';
 import { startAllProducts } from '../actions/myProducts';
 import Table from 'react-bootstrap/Table';
 import {Row, Col, Card} from 'react-bootstrap';
+import Footer from './Footer';
+
 export default function ProfileStatistics(props) {
 
   const [toogle, setToogle]= useState(false)
@@ -93,7 +95,7 @@ console.log('proDetails',prodDetails)
                   </div>
                   <div className="px-3">
                     <MDBCardText className="mb-1 h5">{user.reqForm.getRequests.length}</MDBCardText>
-                    <MDBCardText >Total Requests</MDBCardText>
+                    <MDBCardText >Total Send Requests</MDBCardText>
                   </div>
                   <div>
                     <MDBCardText className="mb-1 h5">{(ele?.role)?.toUpperCase()}</MDBCardText>
@@ -169,7 +171,6 @@ console.log('proDetails',prodDetails)
                             <Button >PAYmentDone</Button>
                         </Card>
                         </Col>
-                       
                     }
                     
                 })}
@@ -177,6 +178,7 @@ console.log('proDetails',prodDetails)
             </>
                   :''
             }
+    <Footer/>
     </div>
   );
 }

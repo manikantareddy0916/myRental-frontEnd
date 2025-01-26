@@ -14,9 +14,9 @@ import {Provider} from 'react-redux'
 const store=configureStore()
 //console.log(store.getState())
 
-store.subscribe(()=>{
-  console.log('subscribe',store.getState())
-})
+// store.subscribe(()=>{
+//   console.log('subscribe',store.getState())
+// })
 ReactDOM.createRoot(document.getElementById('root')).render(
     <Provider store = {store}>
     <App />
