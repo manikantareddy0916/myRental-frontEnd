@@ -4,7 +4,7 @@ import { useContext, useState } from "react"
 import { Card,Row, Col,Button, Modal ,Carousel} from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { UserContext } from "../App"
-import PaymentItem from "./paymentItem"
+import PaymentItem from "./PaymentItem"
 import Footer from "./Footer"
 export default function Payment(){
 
